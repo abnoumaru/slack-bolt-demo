@@ -1,6 +1,12 @@
 
 ## 各種手順
 
+### .envを読み込む
+
+```bash
+source .env
+```
+
 ### ECRレポジトリ作成ログ
 
 ```bash
@@ -13,8 +19,9 @@
 aws lambda create-function \
   --function-name slack-bolt-demo \
   --package-type Image \
-  --code ImageUri=XXXXXXXXXXXX.dkr.ecr.ap-northeast-1.amazonaws.com/slack-bolt-demo:latest \
-    --role arn:aws:iam::XXXXXXXXXXXX:role/slack-bolt-demo \ 
+  --code ImageUri=${ECR_URI}:latest \
+  --role arn:aws:iam::${ACCOUNT_ID}:role/slack-bolt-demo \
+  --region ap-northeast-1
 ```
 
 ### Lambda関数のイメージ更新
